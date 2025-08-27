@@ -1,0 +1,5 @@
+Ícones de machine learning criados por VectorPortal - Flaticon
+
+CSS Reset de Eric Meyer, versão 2.0 (20110126)
+Este código é de domínio público e foi obtido em http://meyerweb.com/eric/tools/css/reset/.
+Agradecimentos a Eric Meyer por disponibilizar esta ferramenta essencial para o desenvolvimento web.
