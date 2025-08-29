@@ -86,3 +86,10 @@ nav {
   transition: text-shadow 0.2s, color 0.2s;
   will-change: text-shadow, color;
 }
+#animationReferential{
+  position: absolute;
+  left: 10vh;
+  width: 10vh;
+  height: 50px;
+  border: 1px solid yellow;
+}
