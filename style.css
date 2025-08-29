@@ -1,5 +1,8 @@
 :root {
   --it-blue: #38BDF8;
+  --background-color: #0D1117;
+  --text-color: #C9D1D9;
+  --accent-color: #38BDF8;
 }
 
 html {
@@ -72,24 +75,46 @@ nav {
 
 #hero-section {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
 
-#hero-title {
+.hero-title {
     font-size: 6rem;
     font-weight: bolder;
-  color: white;
+    color: white;
 }
 .letra{
   transition: text-shadow 0.2s, color 0.2s;
   will-change: text-shadow, color;
 }
-#animationReferential{
+.letter {
+  color: black;
+}
+#dynamic-text{
+  color: var(--it-blue);
+}
+#dynamic-text::after{
+  content: '|';
+  margin-left: 5px;
+  font-weight: bold;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink{
+  0%, 100%{
+    opacity: 1;
+  }
+  50%{
+    opacity: 0;
+  }
+}
+/*#animationActivator{
   position: absolute;
-  left: 10vh;
-  width: 10vh;
-  height: 50px;
   border: 1px solid yellow;
+  width: 400px;
+  height: 400px;
+  left: 2.5%;
 }
