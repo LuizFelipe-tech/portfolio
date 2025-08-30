@@ -1,53 +1,61 @@
 document.addEventListener('DOMContentLoaded', () => {
     class DynamicTextEffect{
-        private dynamicText:HTMLParagraphElement
+        //Propriedades e construção básica da classe
+        private dynamicText:HTMLParagraphElement            
         public isIntervalRunning: boolean = false
-        //private wordsCount: string[]
-       // private exhibitedWord: number
+        private wordsArray: string[]
+        private currentWordIndex: number
+        public loopDelayTime: number
         constructor(){
             this.dynamicText = document.querySelector('#dynamic-text')!
-            //this.wordsCount = ['Soluções.', 'Futuro.', 'Sistemas.', 'Código.', 'Inovação.', 'Resultados.']
-            //this.exhibitedWord = 0
+            this.wordsArray = ['Soluções.', 'Futuro.', 'Sistemas.', 'Código.', 'Inovação.', 'Resultados.']
+            this.loopDelayTime  = 0
+            this.currentWordIndex = 0
         }
+        //Apaga o texto caractere por caractere
         eraseTextGradually(): void{
-            let intervalCount: number = 0
+
             let deleteCharIndex: number = this.dynamicText.innerText.length - 1
             let intervalID = setInterval(()=>{
                 this.isIntervalRunning = true
-                intervalCount++
                 this.dynamicText.innerHTML = this.dynamicText.innerHTML.slice(0, deleteCharIndex)
                 deleteCharIndex--
                 if(this.dynamicText.innerText!.length === 0 ){
                     this.isIntervalRunning = false
-                    clearInterval(intervalID)                           
+                    clearInterval(intervalID)
+                    this.displayNextWord()                           
                 }
             }, 100)
-
-            return
         }
-        /*NewWord(): void{
-            if(this.exhibitedWord > 5){
-                this.exhibitedWord = 0
-            }else{
-                this.exhibitedWord++  
-            }
-            let characterIndex: number = this.wordsCount[this.exhibitedWord]!.length - 1
-                let count: number = 0
-                let intervalID = setInterval(()=>{
-                        this.dynamicText.innerText = this.dynamicText.innerText.slice(0, characterIndex)
-                        if(count < this.wordsCount[this.exhibitedWord]!.length){
-                            count++
-                        }else{
-                            clearInterval(intervalID)
-                        }
-                    }, 100)   
-        }*/
+        //digita a nova palavra caractere por caractere, usando delay
+        displayNextWord(): void{
+            let insertCharIndex: number = 0
+                if(this.currentWordIndex == 5){
+                    this.currentWordIndex = 0
+                } else{
+                    this.currentWordIndex++
+                }
+                let intervalID = setInterval(() => {
+                this.dynamicText.innerText = this.wordsArray[this.currentWordIndex]!.slice(0, insertCharIndex)
+                insertCharIndex++
+                if(this.dynamicText.innerText.length == this.wordsArray[this.currentWordIndex]!.length){
+                    clearInterval(intervalID)
+                    setTimeout(()=>{
+                        this.eraseTextGradually()
+                    }, 3000)
+                    
+                }
+            }, 200);
+            
+        }
         
     }
+    /*class BubblesEffect{
+
+    }*/
     const heroTextEffect: DynamicTextEffect = new DynamicTextEffect()
+    heroTextEffect.loopDelayTime
     setTimeout(()=>{
         heroTextEffect.eraseTextGradually()
-    }, 1500)
-
-    //heroTextEffect.NewWord()
+    }, heroTextEffect.loopDelayTime)  
 })
