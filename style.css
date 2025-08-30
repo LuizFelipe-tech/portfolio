@@ -1,3 +1,7 @@
+/* ==========================================================================
+   1. Variáveis e Configurações Globais
+   ========================================================================== */
+
 :root {
   --it-blue: #38BDF8;
   --background-color: #0D1117;
@@ -15,20 +19,30 @@ html {
 }
 
 body {
-  background-color: #0D1117;
+  background-color: var(--background-color);
   font-family: Inter, Arial, Helvetica, sans-serif;
+  color: var(--text-color);
 }
 
+
+/* ==========================================================================
+   2. Estilos de Componentes
+   ========================================================================== */
+
 nav {
-  background-color: #0D1117;
+  background-color: var(--background-color);
   padding: 3.5vh 14vh;
   color: white;
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
-  /* Use px para a borda, pois é uma unidade fixa e ideal para isso */
   border-bottom: 1px solid #30363D;
+}
+
+#name {
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 #navbuttons {
@@ -39,7 +53,6 @@ nav {
 
 .nav-button {
   position: relative;
-  /* Use rem para espaçamentos */
   margin-right: 2rem;
   color: var(--standard-gray);
   transition: color 0.3s ease;
@@ -55,7 +68,6 @@ nav {
   width: 100%;
   height: 2px;
   background-color: var(--it-blue);
-  /* Use rem para espaçamento */
   bottom: -0.5rem;
   left: 0;
   transform: scaleX(0);
@@ -66,59 +78,76 @@ nav {
 
 .nav-button:hover::after {
   transform: scaleX(1);
-  height: 2px;
 }
 
-#name {
-  font-size: 2rem;
-  font-weight: bold;
+
+/* -------------------- Seção Hero -------------------- */
+
+#hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .hero-title {
-    font-size: 6.5rem;
-    font-weight: bolder;
-    color: white;
+  font-size: 6.5rem;
+  font-weight: bolder;
+  color: white;
 }
-.letra{
-  transition: text-shadow 0.2s, color 0.2s;
-  will-change: text-shadow, color;
+
+#hero-subtitle {
+  color: var(--standard-gray);
+  font-size: 2rem;
+  display: block;
+  max-width: 700px; 
+  text-align: center;
+  padding: 0 1rem;
 }
-.letter {
-  color: black;
-}
-#dynamic-text{
+
+
+/* ==========================================================================
+   3. Efeitos e Animações
+   ========================================================================== */
+/* -------------------- Efeito de digitação -------------------- */
+
+#dynamic-text {
   color: var(--it-blue);
   text-shadow: 0 0 7px var(--it-blue);
 }
-#dynamic-text::after{
+
+#dynamic-text::after {
   content: '|';
   margin-left: 5px;
   font-weight: bold;
   animation: blink 1s infinite;
 }
 
-@keyframes blink{
-  0%, 100%{
+.letra {
+  transition: text-shadow 0.2s, color 0.2s;
+  will-change: text-shadow, color;
+}
+
+.letter {
+  color: black;
+}
+
+@keyframes blink {
+  0%,
+  100% {
     opacity: 1;
   }
-  50%{
+  50% {
     opacity: 0;
   }
 }
 
-#hero-subtitle{
-  color: var(--standard-gray);
-  font-size: 2rem;
-  display: block;
-  width: 700px;
-  text-align: center;
-}
 
-#hero-content{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  z-index: 2;
+/* ==========================================================================
+   4. Classes Utilitárias
+   ========================================================================== */
+
+#emphasize {
+  font-weight: bold;
 }

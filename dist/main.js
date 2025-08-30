@@ -47,9 +47,27 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 200);
         }
     }
-    /*class BubblesEffect{
-
-    }*/
+    class BubblesEffect {
+        canvas;
+        xParticle;
+        yParticle;
+        xSpeed;
+        ySpeed;
+        particleSize;
+        particleColor;
+        constructor() {
+            this.canvas = document.querySelector('canvas');
+            this.canvas.getContext('2d');
+            this.xParticle = 0;
+            this.yParticle = 0;
+            this.xSpeed = 0;
+            this.ySpeed = 0;
+            this.particleSize = 0;
+            this.particleColor = 'white';
+        }
+        animate() {
+        }
+    }
     const heroTextEffect = new DynamicTextEffect();
     heroTextEffect.loopDelayTime;
     setTimeout(() => {

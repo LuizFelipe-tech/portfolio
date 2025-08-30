@@ -50,9 +50,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
     }
-    /*class BubblesEffect{
+    class BubblesEffect{
+        private canvas:HTMLCanvasElement
+        private xParticle:number
+        private yParticle:number
+        private xSpeed:number
+        private ySpeed:number
+        private particleSize:number
+        private particleColor:string
+        constructor(){
+            this.canvas = document.querySelector('canvas')!
+            this.canvas.getContext('2d')
+            this.xParticle = 0
+            this.yParticle = 0
+            this.xSpeed = 0
+            this.ySpeed = 0
+            this.particleSize = 0
+            this.particleColor = 'white'
+            }
+        animate(){
 
-    }*/
+        }
+    }
     const heroTextEffect: DynamicTextEffect = new DynamicTextEffect()
     heroTextEffect.loopDelayTime
     setTimeout(()=>{
