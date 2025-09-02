@@ -55,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
         xSpeed;
         ySpeed;
         particleSize;
-        particleColor;
         constructor() {
             this.canvas = document.querySelector('canvas');
             this.ctx = this.canvas.getContext('2d');
@@ -63,29 +62,29 @@ document.addEventListener('DOMContentLoaded', () => {
             this.canvas.height = this.canvas.clientHeight;
             this.xParticle = this.canvas.width / 2;
             this.yParticle = this.canvas.height / 2;
-            this.xSpeed = 0;
-            this.ySpeed = 0;
-            this.particleSize = 0;
-            this.particleColor = 'white';
-            this.renderParticle();
-            requestAnimationFrame(this.animateParticle);
+            this.xSpeed = 1;
+            this.ySpeed = 1;
+            this.particleSize = 3;
         }
         renderParticle() {
             this.ctx.beginPath();
-            console.log(0);
-            this.ctx.arc(this.xParticle, this.yParticle, 10, 0, Math.PI * 2);
-            this.ctx.fillStyle = 'white';
+            this.ctx.arc(this.xParticle, this.yParticle, this.particleSize, 0, Math.PI * 2);
+            this.ctx.fillStyle = 'gray';
             this.ctx.fill();
-            console.log(1);
+            this.ctx.closePath();
         }
         animateParticle() {
-            console.log(2);
-            this.ctx.clearRect(this.xParticle, this.yParticle, 20, 20);
-            this.xParticle++;
-            this.yParticle++;
-            console.log(`x2: ${this.xParticle}, y2: ${this.yParticle}`);
-            this.renderParticle();
-            requestAnimationFrame(this.animateParticle);
+            requestAnimationFrame(() => {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.xParticle += this.xSpeed;
+                this.yParticle += this.ySpeed;
+                this.renderParticle();
+                this.animateParticle();
+                if (this.xParticle < 0 || this.xParticle > this.canvas.width || this.yParticle < 0 || this.yParticle > this.canvas.height) {
+                    this.xSpeed *= Math.random() * (1 - 10 + 1);
+                    this.ySpeed *= -1;
+                }
+            });
         }
     }
     /*class BubblesEffect{
@@ -113,6 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const particlesByTheScreen: BubblesEffect = new BubblesEffect()
     particlesByTheScreen.renderParticles()*/
     const particle = new Particles();
+    particle.renderParticle();
+    particle.animateParticle();
     const heroTextEffect = new DynamicTextEffect();
     heroTextEffect.loopDelayTime;
     setTimeout(() => {
