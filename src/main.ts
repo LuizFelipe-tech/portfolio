@@ -53,39 +53,47 @@ document.addEventListener('DOMContentLoaded', () => {
     class Particles{
         private canvas:HTMLCanvasElement
         private ctx:CanvasRenderingContext2D
-        private xParticle:number
-        private yParticle:number
+        private centerXParticle:number
+        private centerYParticle:number
         private xSpeed:number
         private ySpeed:number
         private particleSize:number
+        private particleColor:string
         constructor(){
             this.canvas = document.querySelector('canvas')!
             this.ctx = this.canvas.getContext('2d')!
             this.canvas.width = this.canvas.clientWidth;
             this.canvas.height = this.canvas.clientHeight;
-            this.xParticle = this.canvas.width/2
-            this.yParticle = this.canvas.height/2
+            this.centerXParticle = this.canvas.width/2
+            this.centerYParticle = this.canvas.height/2
             this.xSpeed = Math.random() < 0.5? -1: 1
             this.ySpeed = Math.random() < 0.5? -1: 1
             this.particleSize = 3
             this.particleColor = 'gray'
-
         }
         renderParticle(){
             this.ctx.beginPath()
-            this.ctx.arc(this.xParticle, this.yParticle, this.particleSize, 0, Math.PI * 2)
+            this.ctx.arc(this.centerXParticle, this.centerYParticle, this.particleSize, 0, Math.PI * 2)
             this.ctx.fillStyle = this.particleColor
             this.ctx.fill()
         }
         animateParticle(){
             requestAnimationFrame(()=>{
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-                if(this.xParticle >= this.canvas.width || this.xParticle <= 0 || this.yParticle >= this.canvas.height || this.yParticle <= 0){
+                console.log(`
+                    centro X ${this.centerXParticle}
+                    centro Y ${this.centerYParticle}
+                    largura ${this.canvas.width}
+                    altura ${this.canvas.height}
+                    `
+                )
+                if(this.canvas.width - (this.centerXParticle + this.particleSize) <= 10 || (this.centerXParticle + this.particleSize)<= 0 || this.canvas.height - (this.centerYParticle + this.particleSize) <= 10 || (this.centerYParticle + this.particleSize) <= 0){
+                   
                     this.xSpeed*= Math.random() < 0.5? -1: 1
-                    this.ySpeed*= Math.random() < 0.5? -1: 1
+                    this.ySpeed*= Math.random() < 0.5? -1: -1
             }
-                this.xParticle+=this.xSpeed
-                this.yParticle+=this.ySpeed
+                this.centerXParticle += this.xSpeed
+                this.centerYParticle += this.ySpeed
                 this.renderParticle()
                 this.animateParticle()
             })
