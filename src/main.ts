@@ -66,56 +66,37 @@ document.addEventListener('DOMContentLoaded', () => {
             this.canvas.height = this.canvas.clientHeight;
             this.xParticle = this.canvas.width/2
             this.yParticle = this.canvas.height/2
-            this.xSpeed = 0
-            this.ySpeed = 0
-            this.particleSize = 0
-            this.particleColor = 'white'
-            this.renderParticle()
-            requestAnimationFrame(this.animateParticle)
+            this.xSpeed = Math.random() < 0.5? -1: 1
+            this.ySpeed = Math.random() < 0.5? -1: 1
+            this.particleSize = 3
+            this.particleColor = 'gray'
+
         }
         renderParticle(){
             this.ctx.beginPath()
-            console.log(0)
-            this.ctx.arc(this.xParticle, this.yParticle, 10, 0, Math.PI * 2)
-            this.ctx.fillStyle = 'white'
+            this.ctx.arc(this.xParticle, this.yParticle, this.particleSize, 0, Math.PI * 2)
+            this.ctx.fillStyle = this.particleColor
             this.ctx.fill()
-            console.log(1)
         }
         animateParticle(){
-            console.log(2)
-            this.ctx.clearRect(this.xParticle, this.yParticle, 20, 20)
-            this.xParticle++
-            this.yParticle++
-            console.log(`x2: ${this.xParticle}, y2: ${this.yParticle}`)
-            this.renderParticle()
-            requestAnimationFrame(this.animateParticle)
+            requestAnimationFrame(()=>{
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+                if(this.xParticle >= this.canvas.width || this.xParticle <= 0 || this.yParticle >= this.canvas.height || this.yParticle <= 0){
+                    this.xSpeed*= Math.random() < 0.5? -1: 1
+                    this.ySpeed*= Math.random() < 0.5? -1: 1
+            }
+                this.xParticle+=this.xSpeed
+                this.yParticle+=this.ySpeed
+                this.renderParticle()
+                this.animateParticle()
+            })
+
+            
         }
     }
-    /*class BubblesEffect{
-        private canvas:HTMLCanvasElement
-        private ctx:CanvasRenderingContext2D
-        constructor(){
-            this.canvas = document.querySelector('canvas')!
-
-            this.ctx = this.canvas.getContext('2d')!
-            this.canvas.width = this.canvas.clientWidth;
-            this.canvas.height = this.canvas.clientHeight;
-            }
-            renderParticles(){
-                this.ctx.beginPath()
-                //this.ctx.arc(this.xParticle, this.yParticle, 10, 0, Math.PI * 2)
-                this.ctx.fillStyle = 'white'
-                this.ctx.fill()
-                //this.particles.push(this.ctx)
-                console.log(this.particles[0])
-            }
-            moveParticles(){
-                this.ctx
-            }
-    }
-    const particlesByTheScreen: BubblesEffect = new BubblesEffect()
-    particlesByTheScreen.renderParticles()*/
     const particle = new Particles()
+    particle.renderParticle()
+    particle.animateParticle()
     const heroTextEffect: DynamicTextEffect = new DynamicTextEffect()
     heroTextEffect.loopDelayTime
     setTimeout(()=>{
