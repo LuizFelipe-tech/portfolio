@@ -61,12 +61,21 @@ document.addEventListener('DOMContentLoaded', () => {
             this.ctx = this.canvas.getContext('2d');
             this.canvas.width = this.canvas.clientWidth;
             this.canvas.height = this.canvas.clientHeight;
-            this.centerXParticle = this.canvas.width / 2;
-            this.centerYParticle = this.canvas.height / 2;
+            this.centerXParticle = Math.random() * (this.canvas.width + 1);
+            this.centerYParticle = Math.random() * (this.canvas.height + 1);
             this.xSpeed = Math.random() < 0.5 ? -1 : 1;
             this.ySpeed = Math.random() < 0.5 ? -1 : 1;
-            this.particleSize = 3;
+            this.particleSize = Math.random() * (4);
             this.particleColor = 'gray';
+        }
+        initParticle() {
+            this.centerXParticle = Math.random() * (this.canvas.width + 1);
+            this.centerYParticle = Math.random() * (this.canvas.height + 1);
+            this.xSpeed = Math.random() < 0.5 ? -1 : 1;
+            this.ySpeed = Math.random() < 0.5 ? -1 : 1;
+            this.particleSize = Math.random() * (4);
+            this.renderParticle();
+            this.animateParticle();
         }
         renderParticle() {
             this.ctx.beginPath();
@@ -77,15 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
         animateParticle() {
             requestAnimationFrame(() => {
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                console.log(`
-                    centro X ${this.centerXParticle}
-                    centro Y ${this.centerYParticle}
-                    largura ${this.canvas.width}
-                    altura ${this.canvas.height}
-                    `);
-                if (this.canvas.width - (this.centerXParticle + this.particleSize) <= 10 || (this.centerXParticle + this.particleSize) <= 0 || this.canvas.height - (this.centerYParticle + this.particleSize) <= 10 || (this.centerYParticle + this.particleSize) <= 0) {
-                    this.xSpeed *= Math.random() < 0.5 ? -1 : 1;
-                    this.ySpeed *= Math.random() < 0.5 ? -1 : -1;
+                if (this.centerYParticle + 5 >= this.canvas.height || this.centerYParticle - 5 <= 0) {
+                    this.ySpeed *= -1;
+                }
+                else if (this.centerXParticle + 5 >= this.canvas.width || this.centerXParticle - 5 <= 0) {
+                    this.xSpeed *= -1;
                 }
                 this.centerXParticle += this.xSpeed;
                 this.centerYParticle += this.ySpeed;
@@ -94,9 +99,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
-    const particle = new Particles();
-    particle.renderParticle();
-    particle.animateParticle();
+    for (let i = 0; i <= 11; i++) {
+        const particle = new Particles();
+        particle.initParticle();
+    }
     const heroTextEffect = new DynamicTextEffect();
     heroTextEffect.loopDelayTime;
     setTimeout(() => {
