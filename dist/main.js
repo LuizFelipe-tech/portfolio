@@ -1,50 +1,76 @@
 document.addEventListener('DOMContentLoaded', () => {
     class DynamicTextEffect {
-        //Propriedades e construção básica da classe
+        // --- Propriedades de Estado e Configuração ---
         dynamicText;
-        isIntervalRunning = false;
         wordsArray;
         currentWordIndex;
-        loopDelayTime;
+        // --- Propriedades para Controle da Animação ---
+        animationFrameId = 0;
+        lastUpdateTimestamp = 0;
+        isTyping = true; // Controla se a ação atual é digitar ou apagar
+        // --- Configurações de Tempo (em milissegundos) ---
+        typingInterval = 200; // Intervalo entre cada letra digitada
+        deletingInterval = 100; // Intervalo entre cada letra apagada
+        wordStayTime = 3000; // Tempo que a palavra fica na tela antes de apagar
         constructor() {
             this.dynamicText = document.querySelector('#dynamic-text');
             this.wordsArray = ['Soluções.', 'Futuro.', 'Sistemas.', 'Código.', 'Inovação.', 'Resultados.'];
-            this.loopDelayTime = 0;
             this.currentWordIndex = 0;
         }
-        //Apaga o texto caractere por caractere
-        eraseTextGradually() {
-            let deleteCharIndex = this.dynamicText.innerText.length - 1;
-            let intervalID = setInterval(() => {
-                this.isIntervalRunning = true;
-                this.dynamicText.innerHTML = this.dynamicText.innerHTML.slice(0, deleteCharIndex);
-                deleteCharIndex--;
-                if (this.dynamicText.innerText.length === 0) {
-                    this.isIntervalRunning = false;
-                    clearInterval(intervalID);
-                    this.displayNextWord();
+        /**
+         * O loop principal da animação, que decide se deve digitar ou apagar.
+         * @param timestamp O tempo fornecido por requestAnimationFrame.
+         */
+        animationLoop(timestamp) {
+            // Inicializa o timestamp na primeira execução do loop
+            if (this.lastUpdateTimestamp === 0) {
+                this.lastUpdateTimestamp = timestamp;
+            }
+            const elapsedTime = timestamp - this.lastUpdateTimestamp;
+            if (this.isTyping) {
+                // --- LÓGICA DE DIGITAÇÃO ---
+                const currentWord = this.wordsArray[this.currentWordIndex];
+                const currentTextLength = this.dynamicText.innerText.length;
+                // Se a palavra ainda não foi totalmente digitada e o tempo passou
+                if (currentTextLength < currentWord.length && elapsedTime > this.typingInterval) {
+                    this.dynamicText.innerText = currentWord.slice(0, currentTextLength + 1);
+                    this.lastUpdateTimestamp = timestamp; // Reseta o cronômetro
                 }
-            }, 100);
-        }
-        //digita a nova palavra caractere por caractere, usando delay
-        displayNextWord() {
-            let insertCharIndex = 0;
-            if (this.currentWordIndex == 5) {
-                this.currentWordIndex = 0;
+                // Se a palavra terminou de ser digitada
+                if (this.dynamicText.innerText.length === currentWord.length && elapsedTime > this.wordStayTime) {
+                    this.isTyping = false; // Muda o estado para apagar
+                    this.lastUpdateTimestamp = 0; // Reseta o tempo para o próximo estado
+                }
             }
             else {
-                this.currentWordIndex++;
-            }
-            let intervalID = setInterval(() => {
-                this.dynamicText.innerText = this.wordsArray[this.currentWordIndex].slice(0, insertCharIndex);
-                insertCharIndex++;
-                if (this.dynamicText.innerText.length == this.wordsArray[this.currentWordIndex].length) {
-                    clearInterval(intervalID);
-                    setTimeout(() => {
-                        this.eraseTextGradually();
-                    }, 3000);
+                // --- LÓGICA DE APAGAR ---
+                // Se o texto ainda não foi totalmente apagado e o tempo passou
+                if (this.dynamicText.innerText.length > 0 && elapsedTime > this.deletingInterval) {
+                    this.dynamicText.innerText = this.dynamicText.innerText.slice(0, -1);
+                    this.lastUpdateTimestamp = timestamp; // Reseta o cronômetro
                 }
-            }, 200);
+                // Se o texto terminou de ser apagado
+                if (this.dynamicText.innerText.length === 0) {
+                    this.isTyping = true; // Muda o estado para digitar
+                    this.lastUpdateTimestamp = 0; // Reseta o tempo para o próximo estado
+                    // Passa para a próxima palavra
+                    this.currentWordIndex++;
+                    if (this.currentWordIndex >= this.wordsArray.length) {
+                        this.currentWordIndex = 0;
+                    }
+                }
+            }
+            // Continua o loop para o próximo quadro
+            this.animationFrameId = requestAnimationFrame(this.animationLoop.bind(this));
+        }
+        /**
+         * Inicia todo o ciclo de animação.
+         */
+        start() {
+            // Cancela qualquer animação anterior para evitar loops duplicados
+            cancelAnimationFrame(this.animationFrameId);
+            // Inicia o loop
+            this.animationFrameId = requestAnimationFrame(this.animationLoop.bind(this));
         }
     }
     class DynamicParticle {
@@ -120,12 +146,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
-    const particle = new ParticleAnimationSystem;
+    const particle = new ParticleAnimationSystem();
     const heroTextEffect = new DynamicTextEffect();
-    heroTextEffect.loopDelayTime;
-    setTimeout(() => {
-        heroTextEffect.eraseTextGradually();
-    }, heroTextEffect.loopDelayTime);
+    // Começa a animação do texto
+    heroTextEffect.start();
 });
 export {};
 //# sourceMappingURL=main.js.map
