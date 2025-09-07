@@ -4,77 +4,72 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     
     <title>Portfólio Luiz Felipe</title>
     <meta name="description" content="Portfólio do Desenvolvedor em estudo Luiz Felipe">
     <meta name="author" content="Luiz Felipe">
     <meta name="keywords" content="desenvolvedor, programador, ia">
-
     
     <meta property="og:title" content="Portfólio Luiz Felipe">
     <meta property="og:description" content="Portfólio do Desenvolvedor em estudo Luiz Felipe">
     <meta property="og:image" content="URL de uma imagem representativa">
     <meta property="og:url" content="URL da página">
     <meta property="og:type" content="website">
-
     
     <link rel="icon" href="imgs/favicon.ico" sizes="any">
     <link rel="icon" href="imgs/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
-    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
-    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
-    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
-    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
-    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />   
-
-    <link rel="stylesheet" href="src/styles/reset.css">
+    <link rel="apple-touch-icon" sizes="57x57" href="./src/assets/imgs/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="./src/assets/imgs/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="./src/assets/imgs/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="./src/assets/imgs/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="./src/assets/imgs/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="./src/assets/imgs/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="./src/assets/imgs/apple-touch-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./src/assets/imgs/apple-touch-icon-180x180.png" />
+    
     <link rel="stylesheet" href="src/styles/main.css">
-    <link rel="stylesheet" href="src/styles/a11y.css">
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="animationReferential"></div>
     <header>
-        <nav id="relative">
-                <p id="name">Luiz Felipe</p>
-                <div id="navbuttons">
+        <nav>
+            <img src="src/assets/imgs/menu_24dp_38BDF8_FILL0_wght400_GRAD0_opsz24.svg" alt="Menu" id="burger-menu">
+            <p id="name">Luiz Felipe</p>
+            <div id="navbuttons" class="nav-menu">
                 <p class="nav-button">Sobre</p>
                 <p class="nav-button">Projetos</p>
                 <p class="nav-button">Painel</p>
                 <p class="nav-button">Contato</p>
+            </div>
+            <img src="src/assets/imgs/code_24dp_38BDF8_FILL0_wght400_GRAD0_opsz24.svg" alt="Símbolo de código">
         </nav>
     </header>
 
     <main>
         <section id="hero-section">
             <canvas id="minhaTela"></canvas>
-        <article id="hero-content">
-            <h1 class="hero-title">Transformando ideias em</h1>
-            <h1 class="hero-title" id="dynamic-text">Soluções.</h1>
-            <p id="hero-subtitle">Futuro Cientista da Computação, focado em construir soluções de IA que resolvem problemas reais através do <span id="enphasize">código.</span></p>
-        </article>
-
-        </section>    
+            <article id="hero-content">
+                <h1 class="hero-title">Transformando ideias em</h1>
+                <h1 class="hero-title" id="dynamic-text">Soluções.</h1>
+                <p id="hero-subtitle">Futuro Cientista da Computação, focado em construir soluções de IA que resolvem problemas reais através do <span id="emphasize">código.</span></p>
+            </article>
+        </section>
+        
         <section>
             <h1>Testando</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores eius praesentium, ducimus officia animi ullam iure quas quasi illum nisi quae sapiente necessitatibus minima. Asperiores corporis magni id totam eum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Est commodi, saepe accusantium exercitationem nisi vel nesciunt beatae veritatis. Rerum dolorum a quod, aliquid eos ullam possimus obcaecati rem sint numquam!</p>
-        </section>    
+        </section>
     </main>
 
     <footer>
-        
+        <p>Feito por Luiz</p>
     </footer>
-
     
-    <script src="./dist/main.js" defer type="module"></script>
+    <script src="./src/main.ts" defer type="module"></script>
 </body>
 </html>
