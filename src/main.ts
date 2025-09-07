@@ -4,7 +4,8 @@ import {BurgerMenu} from './components/burger-menu.ts'
 import './styles/main.css';
 
 document.addEventListener('DOMContentLoaded', () => {
-  new BurgerMenu
+  new BurgerMenu().manageMenu()
+
   new DynamicTextEffect().start();
   new ParticleAnimationSystem();
 });

@@ -1,0 +1,44 @@
+:root {
+    /* --- Cores --- */
+    --it-blue: #38BDF8;
+    --background-color: #0D1117;
+    --text-color: #C9D1D9;
+    --accent-color: #38BDF8;
+    --standard-gray: #8B949E;
+    --border-color: #30363D;
+    --white-color: #FFFFFF;
+    --accent-color-transparent: #38BDF833;
+
+    /* --- Tipografia --- */
+    --font-size-base: 62.5%; /* 1rem = 10px */
+    --font-size-sm: 1.5rem;
+    --font-size-md: 2rem;
+    --font-size-lg: 6rem;
+    --font-size-xl: 6.5rem;
+    --font-size-nav-mobile: 1.5em;
+    --font-size-nav-desktop: 1em;
+    
+    /* --- Espaçamento --- */
+    --spacing-xxs: 1px;
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --nav-padding-mobile: 3.5vh 2vh 3vh;
+    --nav-padding-desktop: 3.5vh 14vh;
+    --burger-menu-padding: 0.5vh;
+    
+    /* --- Layout & Componentes --- */
+    --nav-menu-width: 150px;
+    --hero-max-width: 700px;
+    --underline-height: 2px;
+    
+    /* --- Bordas --- */
+    --border-radius-sm: 5%;
+    --border-radius-full: 50%;
+
+    /* --- Transições --- */
+    --transition-duration-fast: 0.3s;
+    --transition-duration-medium: 0.4s;
+    --transition-timing-function: ease;
+    --transition-timing-function-alt: ease-in-out;
+}

@@ -29,7 +29,7 @@ class DynamicParticle {
     }
 
     // Atualiza a posição da partícula
-    moveParticle() {
+    moveParticle(): void {
         if (this.centerYParticle + this.particleSize >= this.canvasHeight || this.centerYParticle - this.particleSize <= 0) {
             this.ySpeed *= -1;
         }
@@ -57,7 +57,7 @@ export class ParticleAnimationSystem {
     }
 
     // Configura o tamanho inicial do canvas
-    private setupCanvas() {
+    private setupCanvas(): void {
         this.canvas.width = this.canvas.clientWidth;
         this.canvas.height = this.canvas.clientHeight;
         // Adicionar um listener para redimensionar o canvas com a janela
@@ -68,7 +68,7 @@ export class ParticleAnimationSystem {
     }
 
     // Cria as partículas iniciais
-    private initParticles() {
+    private initParticles(): void {
         const numberOfParticles = 100;
         for (let i = 0; i < numberOfParticles; i++) {
             this.particles.push(new DynamicParticle(this.canvas.width, this.canvas.height));

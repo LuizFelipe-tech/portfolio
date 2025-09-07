@@ -3,17 +3,10 @@
    ========================================================================== */
 @import './reset.css';
 @import './a11y.css';
-
-:root {
-    --it-blue: #38BDF8;
-    --background-color: #0D1117;
-    --text-color: #C9D1D9;
-    --accent-color: #38BDF8;
-    --standard-gray: #8B949E;
-}
+@import './variables.css';
 
 html {
-    font-size: 62.5%; /* 1rem = 10px */
+    font-size: var(--font-size-base);
 }
 
 * {
@@ -38,45 +31,56 @@ header {
 
 nav {
     background-color: var(--background-color);
-    padding: 3.5vh 2vh 3vh;
+    padding: var(--nav-padding-mobile);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #30363D;
+    border-bottom: var(--spacing-xxs) solid var(--border-color);
 }
 
 #name {
-    font-size: 2rem;
+    font-size: var(--font-size-md);
     font-weight: bold;
 }
 
 #burger-menu {
-    padding: 0.5vh;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
+    padding: var(--burger-menu-padding);
+    border-radius: var(--border-radius-full);
+    transition: background-color var(--transition-duration-fast) var(--transition-timing-function);
 }
 
 #burger-menu:hover {
-    background-color: #38BDF833;
+    background-color: var(--accent-color-transparent);
     cursor: pointer;
 }
 
-#navbuttons {
-    display: none; /* Escondido por padrão (mobile) */
-    transition: all 1s ease;
+.navbuttons {
+    display: none;
 }
 
-#burger-menu:hover ~ #navbuttons {
+.nav-menu {
     position: absolute;
     top: 95%;
     left: 0;
-    width: 100px;
-    background-color: #38BDF833;
-    border-top: 1px solid #30363D;
-    padding: 1rem;
+    width: var(--nav-menu-width);
+    background-color: var(--accent-color-transparent);
+    border-top: var(--spacing-xxs) solid var(--border-color);
+    padding: var(--spacing-sm);
     z-index: 5;
     display: block;
-    border-radius: 5%;
+    border-radius: var(--border-radius-sm);
+}
+
+.nav-menu-off {
+    display: none;
+}
+.nav-button {
+    font-size: var(--font-size-nav-mobile);
+}
+
+.nav-button:hover {
+    color: var(--it-blue);
+    cursor: pointer;
 }
 
 /* --- Seção Hero --- */
@@ -89,8 +93,10 @@ nav {
 canvas {
     position: absolute;
     display: block;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 1;
 }
 
@@ -101,23 +107,24 @@ canvas {
     align-items: center;
     height: 100vh;
     position: absolute;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     z-index: 2;
     text-align: center;
 }
 
 .hero-title {
-    font-size: 6rem;
+    font-size: var(--font-size-lg);
     font-weight: bolder;
-    color: white;
+    color: var(--white-color);
 }
 
 #hero-subtitle {
     color: var(--standard-gray);
-    font-size: 2rem;
-    max-width: 700px;
-    padding: 0 1rem;
+    font-size: var(--font-size-md);
+    max-width: var(--hero-max-width);
+    padding: 0 var(--spacing-sm);
 }
 
 /* ==========================================================================
@@ -130,14 +137,18 @@ canvas {
 
 #dynamic-text::after {
     content: '|';
-    margin-left: 5px;
+    margin-left: 5px; /* Mantido em px por ser um detalhe fino, mas poderia ser var(--spacing-xxs-pixel) */
     font-weight: bold;
     animation: blink 1s infinite;
 }
 
 @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
 }
 
 /* ==========================================================================
@@ -152,40 +163,37 @@ canvas {
    ========================================================================== */
 @media (min-width: 1000px) {
     nav {
-        padding: 3.5vh 14vh;
+        padding: var(--nav-padding-desktop);
     }
 
     #burger-menu {
         display: none;
     }
 
-    #navbuttons {
+    .navbuttons {
         display: flex;
-        font-size: 1.5rem;
-        gap: 2rem; /* Melhor que margin no último elemento */
+        font-size: var(--font-size-sm);
+        gap: var(--spacing-md);
     }
 
     .nav-button {
         position: relative;
         color: var(--standard-gray);
-        transition: color 0.3s ease;
-    }
-
-    .nav-button:hover {
-        color: var(--it-blue);
+        font-size: var(--font-size-nav-desktop);
+        transition: color var(--transition-duration-fast) var(--transition-timing-function);
     }
 
     .nav-button::after {
         content: '';
         position: absolute;
         width: 100%;
-        height: 2px;
+        height: var(--underline-height);
         background-color: var(--it-blue);
-        bottom: -0.5rem;
+        bottom: calc(-1 * var(--spacing-xs));
         left: 0;
         transform: scaleX(0);
         transform-origin: center;
-        transition: transform 0.4s ease-in-out;
+        transition: transform var(--transition-duration-medium) var(--transition-timing-function-alt);
         will-change: transform;
     }
 
@@ -194,6 +202,6 @@ canvas {
     }
 
     .hero-title {
-        font-size: 6.5rem;
+        font-size: var(--font-size-xl);
     }
 }
