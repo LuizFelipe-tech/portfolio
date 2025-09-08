@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio | Arquiteto de Soluções Full-Stack</title>
+    <meta name="description" content="Portfólio imersivo e gamificado de um Engenheiro de Software Sênior e Arquiteto de Soluções, integrando IA para uma experiência única.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 
+        Pilar Zero: A Fundação Inegociável
+        ------------------------------------
+        Definição de variáveis CSS (tokens de design), estilos base e componentes 
+        reutilizáveis utilizando a diretiva @apply do Tailwind CSS.
+        Esta é a implementação da Fase 2 do nosso Roteiro de Engenharia.
+    -->
+    <style type="text/tailwindcss">
+        @layer base {
+            :root {
+                --dark-bg: #0D1117;
+                --dark-bg-secondary: #161B22;
+                --border-color: #30363D;
+                --text-primary: #C9D1D9;
+                --text-secondary: #8B949E;
+                --accent-color: #38BDF8; /* sky-400 */
+                --accent-hover: #7DD3FC; /* sky-300 */
+            }
+            html {
+                font-family: 'Inter', sans-serif;
+                background-color: var(--dark-bg);
+                color: var(--text-primary);
+            }
+            body {
+                @apply antialiased pt-16; /* Adiciona padding-top para evitar que o conteúdo seja escondido pela nav fixa */
+            }
+            /* Animação de fade-in na rolagem (implementada via JS com IntersectionObserver) */
+            section {
+                @apply py-20 md:py-28 opacity-0 transform translate-y-8 transition-all duration-1000 ease-out;
+            }
+            section.is-visible {
+                @apply opacity-100 translate-y-0;
+            }
+        }
+        @layer components {
+            .container-custom {
+                @apply container mx-auto px-6 md:px-8;
+            }
+            .section-title {
+                @apply text-3xl md:text-4xl font-bold text-center mb-12;
+                @apply relative pb-4;
+            }
+            .section-title::after {
+                @apply content-[''] absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 rounded-full;
+                background-color: var(--accent-color);
+            }
+            .btn {
+                @apply inline-block px-6 py-3 rounded-md font-semibold text-white transition-transform duration-300;
+                background-color: var(--accent-color);
+            }
+            .btn:hover {
+                background-color: var(--accent-hover);
+                @apply scale-105;
+            }
+            .card {
+                @apply rounded-lg p-6 transition-all duration-300 h-full flex flex-col;
+                background-color: var(--dark-bg-secondary);
+                border: 1px solid var(--border-color);
+            }
+            .card:hover {
+                @apply transform -translate-y-2 shadow-2xl;
+                border-color: var(--accent-color);
+            }
+            .nav-link {
+                @apply relative text-sm font-medium text-[var(--text-secondary)] transition-colors duration-300 hover:text-[var(--accent-color)];
+            }
+            .nav-link.active {
+                @apply text-[var(--accent-color)];
+            }
+            .nav-link::after {
+                @apply content-[''] absolute bottom-[-4px] left-0 w-full h-[2px] bg-[var(--accent-color)] transform scale-x-0 transition-transform duration-300 origin-center;
+            }
+            .nav-link.active::after, .nav-link:hover::after {
+                @apply scale-x-100;
+            }
+            /* Estilos para o Chatbot */
+            .chat-bubble {
+                @apply p-3 rounded-lg max-w-xs md:max-w-md;
+            }
+            .chat-bubble.bot {
+                @apply bg-sky-500/20 text-[var(--text-primary)] self-start rounded-tl-none;
+            }
+            .chat-bubble.user {
+                @apply bg-[var(--dark-bg-secondary)] text-[var(--text-primary)] self-end rounded-br-none;
+            }
+        }
+        /* Animação do cursor de digitação */
+        #typed-word::after {
+            content: '|';
+            animation: blink 1s infinite;
+            color: var(--accent-color);
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-[var(--dark-bg)] text-[var(--text-primary)]">
+
+    <!-- ================================================== -->
+    <!-- Menu de Navegação Fixo                            -->
+    <!-- ================================================== -->
+    <nav id="main-nav" class="fixed top-0 left-0 right-0 z-40 bg-[var(--dark-bg)] bg-opacity-80 backdrop-blur-sm border-b border-[var(--border-color)] transition-all duration-300">
+        <div class="container-custom flex items-center justify-between h-16">
+            <a href="#hero" class="text-xl font-bold text-white">Seu Nome</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="nav-link">Sobre</a>
+                <a href="#projects" class="nav-link">Projetos</a>
+                <a href="#recruiter-tools" class="nav-link">Painel</a>
+                <a href="#contact" class="nav-link">Contato</a>
+            </div>
+            <!-- Menu Hambúrguer para Mobile -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl z-50">☰</button>
+        </div>
+        <!-- Links do Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-16 left-0 w-full bg-[var(--dark-bg)] border-b border-[var(--border-color)] flex flex-col items-center space-y-4 py-4">
+             <a href="#about" class="nav-link">Sobre</a>
+             <a href="#projects" class="nav-link">Projetos</a>
+             <a href="#recruiter-tools" class="nav-link">Painel</a>
+             <a href="#contact" class="nav-link">Contato</a>
+        </div>
+    </nav>
+
+
+    <!-- ================================================== -->
+    <!-- Módulo 1: O Portal de Entrada                      -->
+    <!-- ================================================== -->
+    <header id="hero" class="relative h-screen flex items-center justify-center text-center overflow-hidden -mt-16">
+        <canvas id="particle-universe" class="absolute top-0 left-0 w-full h-full z-0"></canvas>
+        <div class="relative z-10 p-4">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black leading-tight">
+                Transformando Ideias em<br/>
+                <span id="typed-word" class="text-[var(--accent-color)]"></span>
+            </h1>
+            <p class="mt-4 text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto">
+                Arquiteto de Soluções Full-Stack especializado em criar experiências digitais memoráveis e inteligentes.
+            </p>
+        </div>
+    </header>
+
+    <main>
+        <!-- ================================================== -->
+        <!-- Módulo 2: A Saga do Arquiteto (Sobre Mim)        -->
+        <!-- ================================================== -->
+        <section id="about" class="container-custom">
+            <h2 class="section-title">A Saga do Arquiteto</h2>
+            <div class="grid md:grid-cols-2 gap-16 items-start">
+                <!-- Linha do Tempo Interativa -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Jornada Profissional</h3>
+                    <div id="timeline" class="relative border-l-2 border-[var(--border-color)] pl-8 space-y-12">
+                        <!-- Itens da timeline serão injetados pelo JS -->
+                    </div>
+                </div>
+                <!-- Árvore de Habilidades -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Árvore de Habilidades</h3>
+                    <div id="skill-tree" class="space-y-6">
+                        <!-- Nós da árvore serão injetados pelo JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================== -->
+        <!-- Módulo 3: O Arsenal (Projetos)                     -->
+        <!-- ================================================== -->
+        <section id="projects" class="container-custom">
+            <h2 class="section-title">O Arsenal de Projetos</h2>
+            <div class="text-center mb-12">
+                <button id="idea-generator-btn" class="btn">
+                    Está sem ideias? Peça uma sugestão à IA
+                </button>
+            </div>
+            <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Cards de projeto do GitHub serão injetados aqui -->
+            </div>
+        </section>
+
+        <!-- ================================================== -->
+        <!-- Módulo 4: O Oráculo e o Painel de Controle       -->
+        <!-- ================================================== -->
+        <section id="recruiter-tools" class="container-custom">
+            <h2 class="section-title">Painel de Controle do Recrutador</h2>
+            <div class="card !p-4 md:!p-8">
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Dashboard de Sinais Vitais -->
+                    <div class="lg:col-span-1 space-y-6">
+                        <h3 class="text-xl md:text-2xl font-bold text-[var(--accent-color)]">Sinais Vitais do Arquiteto</h3>
+                        <div id="github-live-stats">
+                            <h4 class="font-semibold mb-2">GitHub Live Stats:</h4>
+                            <p class="text-[var(--text-secondary)]">Carregando dados...</p>
+                        </div>
+                    </div>
+                    <!-- O Oráculo (Chatbot) -->
+                    <div class="lg:col-span-2">
+                        <h3 class="text-xl md:text-2xl font-bold text-[var(--accent-color)] mb-4">Converse com o Oráculo</h3>
+                        <div id="chatbot" class="h-96 flex flex-col border border-[var(--border-color)] rounded-lg">
+                            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4 flex flex-col">
+                                <div class="chat-bubble bot">Olá! Sou o Oráculo, um assistente de IA treinado com as informações deste portfólio. Como posso ajudar?</div>
+                            </div>
+                            <div class="p-4 border-t border-[var(--border-color)]">
+                                <input type="text" id="chat-input" class="w-full bg-[var(--dark-bg)] p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)]" placeholder="Qual sua principal stack de tecnologias?">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================== -->
+        <!-- Módulo 6: Contato                                  -->
+        <!-- ================================================== -->
+        <section id="contact" class="container-custom">
+            <h2 class="section-title">Vamos Construir o Futuro</h2>
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">Entre em Contato</h3>
+                    <p class="text-[var(--text-secondary)] mb-6">
+                        Estou sempre aberto a novas oportunidades e colaborações. Sinta-se à vontade para me contatar através do formulário ou pelas minhas redes sociais.
+                    </p>
+                    <div class="flex space-x-6">
+                        <a href="https://github.com/SEU_USUARIO" target="_blank" rel="noopener noreferrer" class="text-3xl text-[var(--text-secondary)] hover:text-[var(--accent-color)] transition-colors" aria-label="GitHub">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                        <a href="https://linkedin.com/in/SEU_USUARIO" target="_blank" rel="noopener noreferrer" class="text-3xl text-[var(--text-secondary)] hover:text-[var(--accent-color)] transition-colors" aria-label="LinkedIn">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <form id="contact-form" action="https://formspree.io/f/SEU_ENDPOINT" method="POST">
+                    <div class="mb-4">
+                        <label for="name" class="block mb-2 text-sm font-medium">Nome</label>
+                        <input type="text" id="name" name="name" required class="w-full p-3 rounded-md bg-[var(--dark-bg-secondary)] border border-[var(--border-color)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)]">
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block mb-2 text-sm font-medium">Email</label>
+                        <input type="email" id="email" name="email" required class="w-full p-3 rounded-md bg-[var(--dark-bg-secondary)] border border-[var(--border-color)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)]">
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block mb-2 text-sm font-medium">Mensagem</label>
+                        <textarea id="message" name="message" rows="4" required class="w-full p-3 rounded-md bg-[var(--dark-bg-secondary)] border border-[var(--border-color)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)]"></textarea>
+                    </div>
+                    <button type="submit" class="btn w-full">Enviar Mensagem</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================================================== -->
+    <!-- Rodapé                                             -->
+    <!-- ================================================== -->
+    <footer class="border-t border-[var(--border-color)] py-8">
+        <div class="container-custom text-center text-[var(--text-secondary)] text-sm">
+            <p>&copy; 2025 Seu Nome. Todos os direitos reservados.</p>
+            <p>Criado com paixão, código e uma pitada de IA.</p>
+        </div>
+    </footer>
+
+
+    <!-- ================================================== -->
+    <!-- Módulo 5: A Interface Secreta (Terminal)           -->
+    <!-- ================================================== -->
+    <div id="terminal" class="hidden fixed inset-0 bg-black bg-opacity-95 z-50 p-4 font-mono text-sm flex flex-col font-['Fira_Code',monospace]">
+        <div id="terminal-output" class="w-full flex-1 overflow-y-auto text-white"></div>
+        <div class="flex items-center mt-2">
+            <span class="text-green-400">user@portfolio:~$</span>
+            <input type="text" id="terminal-input" class="bg-transparent border-none text-white flex-1 ml-2 focus:outline-none">
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- Modal Genérico para Análise de IA e Gerador de Ideias -->
+    <!-- ================================================== -->
+    <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4">
+        <div id="modal-content" class="card w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modal-title" class="text-xl font-bold"></h3>
+                <button id="modal-close-btn" class="text-2xl text-[var(--text-secondary)] hover:text-[var(--text-primary)]">&times;</button>
+            </div>
+            <div id="modal-body" class="prose prose-invert max-w-none prose-h3:text-[var(--accent-color)] prose-h4:text-[var(--text-primary)]"></div>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- SCRIPT ÚNICO: Toda a lógica da aplicação           -->
+    <!-- ================================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            /**
+             * Módulo 0: Lógica do Menu de Navegação e Responsividade
+             * Objetivo: Garantir que a navegação funcione em todos os dispositivos
+             * e que os links sejam destacados corretamente na rolagem.
+             */
+            const initNavigation = () => {
+                const nav = document.getElementById('main-nav');
+                const allLinks = document.querySelectorAll('.nav-link, #mobile-menu a');
+                const sections = document.querySelectorAll('section[id], header[id]');
+                const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                const mobileMenu = document.getElementById('mobile-menu');
+
+                // Lógica para o menu mobile
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    mobileMenuBtn.textContent = mobileMenu.classList.contains('hidden') ? '☰' : '✕';
+                });
+
+                allLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (!mobileMenu.classList.contains('hidden')) {
+                             mobileMenu.classList.add('hidden');
+                             mobileMenuBtn.textContent = '☰';
+                        }
+                    });
+                });
+                
+                // Destaca o link de navegação na rolagem usando IntersectionObserver
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const id = entry.target.id;
+                            allLinks.forEach(link => {
+                                link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                            });
+                        }
+                    });
+                }, { rootMargin: '-50% 0px -50% 0px' });
+
+                sections.forEach(sec => observer.observe(sec));
+            };
+
+            /**
+             * Módulo 1.1: Universo de Partículas Interativo (Hero)
+             * Objetivo: Renderizar um fundo de partículas animado e interativo no canvas.
+             * Técnica: Usa `requestAnimationFrame` para uma animação performática.
+             */
+            const initParticleUniverse = () => {
+                const canvas = document.getElementById('particle-universe');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                let particles = [];
+                let mouse = { x: null, y: null, radius: 150 };
+
+                const setCanvasSize = () => {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                };
+
+                class Particle {
+                    constructor(x, y, directionX, directionY, size, color) {
+                        this.x = x; this.y = y; this.directionX = directionX;
+                        this.directionY = directionY; this.size = size; this.color = color;
+                    }
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                        ctx.fillStyle = this.color;
+                        ctx.fill();
+                    }
+                    update() {
+                        if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                        if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                        
+                        this.x += this.directionX;
+                        this.y += this.directionY;
+                        this.draw();
+                    }
+                }
+
+                const initParticles = () => {
+                    particles = [];
+                    let numberOfParticles = (canvas.height * canvas.width) / 9000;
+                    for (let i = 0; i < numberOfParticles; i++) {
+                        let size = (Math.random() * 1.5) + 0.5;
+                        let x = Math.random() * (innerWidth - size * 2) + size * 2;
+                        let y = Math.random() * (innerHeight - size * 2) + size * 2;
+                        let directionX = (Math.random() * .4) - .2;
+                        let directionY = (Math.random() * .4) - .2;
+                        particles.push(new Particle(x, y, directionX, directionY, size, 'rgba(201, 209, 217, 0.6)'));
+                    }
+                };
+
+                const animate = () => {
+                    requestAnimationFrame(animate);
+                    ctx.clearRect(0, 0, innerWidth, innerHeight);
+                    particles.forEach(p => p.update());
+                    connectParticles();
+                };
+
+                const connectParticles = () => {
+                    let opacityValue = 1;
+                    for (let a = 0; a < particles.length; a++) {
+                        for (let b = a; b < particles.length; b++) {
+                            let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x))
+                                         + ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
+                            if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+                                opacityValue = 1 - (distance / 20000);
+                                ctx.strokeStyle = `rgba(201, 209, 217, ${opacityValue})`;
+                                ctx.lineWidth = 1;
+                                ctx.beginPath();
+                                ctx.moveTo(particles[a].x, particles[a].y);
+                                ctx.lineTo(particles[b].x, particles[b].y);
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                };
+
+                window.addEventListener('resize', () => { setCanvasSize(); initParticles(); });
+                setCanvasSize(); initParticles(); animate();
+            };
+            
+            /**
+             * Módulo 1.2: Efeito de Digitação (Hero)
+             * Objetivo: Simular um efeito de digitação para uma lista de palavras.
+             */
+            const initTypedEffect = () => {
+                const typedWordEl = document.getElementById('typed-word');
+                if (!typedWordEl) return;
+                const words = ["Código.", "Soluções.", "Futuro."];
+                let wordIndex = 0, charIndex = 0, isDeleting = false;
+
+                const type = () => {
+                    const currentWord = words[wordIndex];
+                    let typeSpeed = isDeleting ? 100 : 200;
+                    
+                    if (isDeleting) {
+                        typedWordEl.textContent = currentWord.substring(0, charIndex--);
+                    } else {
+                        typedWordEl.textContent = currentWord.substring(0, charIndex++);
+                    }
+
+                    if (!isDeleting && charIndex === currentWord.length + 1) {
+                        typeSpeed = 2000; isDeleting = true;
+                    } else if (isDeleting && charIndex === -1) {
+                        isDeleting = false; wordIndex = (wordIndex + 1) % words.length;
+                    }
+                    setTimeout(type, typeSpeed);
+                };
+                type();
+            };
+
+            /**
+             * Módulo 1.3: Animações de Rolagem
+             * Objetivo: Animar a entrada de seções na rolagem da página.
+             * Técnica: Usa `IntersectionObserver` para máxima performance.
+             */
+            const initScrollAnimations = () => {
+                const sections = document.querySelectorAll('section');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                sections.forEach(section => observer.observe(section));
+            };
+
+            /**
+             * Módulo 2: Conteúdo Dinâmico da Seção "Sobre"
+             * Objetivo: Preencher a timeline e a árvore de habilidades com dados de um objeto JS.
+             * Técnica: Desacopla os dados da apresentação.
+             */
+            const initAboutSection = () => {
+                const timelineEl = document.getElementById('timeline');
+                if (timelineEl) {
+                    const timelineData = [
+                         { year: '2025 - Presente', title: 'Arquiteto de Soluções na TechCorp', description: 'Liderando o design e implementação de sistemas escaláveis na nuvem, focando em arquiteturas de microserviços e soluções de IA.' },
+                         { year: '2022 - 2025', title: 'Engenheiro de Software Sênior na Innovate Inc.', description: 'Desenvolvi e mantive aplicações web de alta performance, otimizando a experiência do usuário e a infraestrutura de backend.' },
+                         { year: '2020 - 2022', title: 'Desenvolvedor Full-Stack na Startup Vision', description: 'Atuei em todas as frentes do desenvolvimento, do frontend com React ao backend com Node.js, em um ambiente ágil e dinâmico.' },
+                         { year: '2020', title: 'Graduação em Ciência da Computação', description: 'Concluí minha graduação com foco em inteligência artificial e sistemas distribuídos, com projeto de conclusão de curso laureado.' },
+                    ];
+                    timelineEl.innerHTML = timelineData.map(item => `
+                        <div class="relative timeline-item">
+                            <div class="absolute -left-[38px] top-1 w-4 h-4 rounded-full bg-[var(--accent-color)] border-4 border-[var(--dark-bg)]"></div>
+                            <p class="text-sm text-[var(--text-secondary)]">${item.year}</p>
+                            <h4 class="font-bold text-lg">${item.title}</h4>
+                            <p class="text-[var(--text-secondary)]">${item.description}</p>
+                        </div>
+                    `).join('');
+                }
+
+                const skillTreeEl = document.getElementById('skill-tree');
+                if (skillTreeEl) {
+                    const skills = {
+                        'Habilidades Técnicas': {
+                            'Frontend': ['React', 'Next.js', 'Tailwind CSS', 'TypeScript'],
+                            'Backend': ['Node.js', 'Python', 'Go', 'GraphQL', 'REST APIs'],
+                            'DevOps & Cloud': ['Docker', 'Kubernetes', 'AWS', 'GCP', 'CI/CD'],
+                            'IA & ML': ['Google Gemini API', 'LangChain', 'TensorFlow']
+                        },
+                        'Habilidades Interpessoais': {
+                            'Comunicação': ['Comunicação Técnica', 'Apresentações', 'Mentoria'],
+                            'Liderança': ['Gestão de Projetos', 'Metodologias Ágeis', 'Tomada de Decisão'],
+                        }
+                    };
+                    skillTreeEl.innerHTML = Object.entries(skills).map(([mainCategory, subCategories]) => `
+                        <div>
+                            <h4 class="text-xl font-bold mb-3">${mainCategory}</h4>
+                            <div class="space-y-4">
+                                ${Object.entries(subCategories).map(([subCategory, skillList]) => `
+                                    <div>
+                                        <h5 class="font-semibold text-[var(--accent-color)]">${subCategory}</h5>
+                                        <div class="flex flex-wrap gap-2 mt-2">
+                                            ${skillList.map(skill => `<span class="px-3 py-1 rounded-full text-sm bg-[var(--dark-bg)] border border-[var(--border-color)]">${skill}</span>`).join('')}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            };
+
+            /**
+             * Módulo 3: Lógica do Arsenal (Projetos)
+             * Objetivo: Buscar e exibir projetos do GitHub dinamicamente.
+             * Técnica: Usa `fetch` com `async/await` e lida com estados de carregamento/erro.
+             */
+            let githubProjectsData = [];
+            const fetchGithubProjects = async () => {
+                const grid = document.getElementById('projects-grid');
+                if (!grid) return;
+                
+                const username = 'google'; // <--- SUBSTITUA PELO SEU USUÁRIO DO GITHUB
+                
+                try {
+                    grid.innerHTML = '<p class="text-center col-span-full">Carregando projetos do GitHub...</p>';
+                    const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&direction=desc&per_page=6`);
+                    if (!response.ok) throw new Error(`Falha ao buscar repositórios: ${response.statusText}`);
+                    
+                    const repos = await response.json();
+                    githubProjectsData = repos;
+                    grid.innerHTML = '';
+
+                    repos.forEach(repo => {
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        card.innerHTML = `
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold truncate">${repo.name}</h3>
+                                <p class="text-[var(--text-secondary)] my-2 text-sm h-20 overflow-hidden">${repo.description || 'Sem descrição disponível.'}</p>
+                                <div class="flex items-center gap-4 text-sm mt-4 text-[var(--text-secondary)]">
+                                    ${repo.language ? `<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full" style="background-color: #f1e05a;"></span>${repo.language}</span>` : ''}
+                                    <span>⭐ ${repo.stargazers_count}</span>
+                                    <span>${new Date(repo.updated_at).toLocaleDateString()}</span>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex gap-2">
+                                <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="btn text-center flex-1 !px-2 !py-2 text-sm">Ver no GitHub</a>
+                                <button class="analyze-btn btn !bg-sky-500/20 hover:!bg-sky-500/40 text-center flex-1 !px-2 !py-2 text-sm" data-repo-name="${repo.name}">Analisar com IA</button>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+                } catch (error) {
+                    console.error('Erro ao buscar projetos do GitHub:', error);
+                    grid.innerHTML = `<p class="text-red-500 text-center col-span-full">Erro ao carregar projetos. Tente novamente mais tarde.</p>`;
+                }
+            };
+            
+            /**
+             * Módulo 4: Painel do Recrutador
+             * Objetivo: Exibir estatísticas do GitHub e implementar um chatbot funcional.
+             */
+            const initRecruiterTools = () => {
+                // Preenche as estatísticas do GitHub
+                const githubStatsEl = document.getElementById('github-live-stats');
+                const username = 'google'; // <--- SUBSTITUA PELO MESMO USUÁRIO ACIMA
+                if (githubStatsEl) {
+                    githubStatsEl.innerHTML = `
+                        <h4 class="font-semibold mb-2">GitHub Live Stats:</h4>
+                        <img src="https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=transparent&text_color=c9d1d9&icon_color=38bdf8&border_color=30363d" alt="Estatísticas do GitHub" class="w-full rounded-md" />
+                        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&layout=compact&theme=transparent&text_color=c9d1d9&border_color=30363d" alt="Linguagens mais usadas" class="w-full rounded-md mt-4" />
+                        <a href="https://github.com/${username}" target="_blank" rel="noopener noreferrer" class="inline-block mt-4 text-[var(--accent-color)] hover:underline text-sm">Ver perfil completo &rarr;</a>
+                    `;
+                }
+
+                // Lógica do Chatbot
+                const chatInput = document.getElementById('chat-input');
+                const chatMessages = document.getElementById('chat-messages');
+
+                const addMessage = (message, sender) => {
+                    const messageEl = document.createElement('div');
+                    messageEl.className = `chat-bubble ${sender}`;
+                    messageEl.textContent = message;
+                    chatMessages.appendChild(messageEl);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                };
+                
+                const getBotResponse = (userMessage) => {
+                    const lowerCaseMessage = userMessage.toLowerCase();
+                    const responses = {
+                        'stack|tecnologias|tech': 'Minha stack principal inclui React/Next.js no frontend, Node.js e Python no backend, e AWS para infraestrutura. Sou proficiente em todo o ecossistema JavaScript/TypeScript.',
+                        'experiência|experience': 'Tenho mais de 5 anos de experiência, desde startups dinâmicas até grandes corporações de tecnologia, atuando como Desenvolvedor Full-Stack, Engenheiro Sênior e, mais recentemente, Arquiteto de Soluções.',
+                        'projetos|portfolio': 'Você pode ver meus principais projetos na seção "O Arsenal". Eles são sincronizados diretamente do meu GitHub e incluem análises de código geradas por IA.',
+                        'contato|contact': 'A melhor forma de entrar em contato é através do formulário na seção "Contato" ou pelo meu LinkedIn.',
+                    };
+
+                    for (const key in responses) {
+                        if (key.split('|').some(keyword => lowerCaseMessage.includes(keyword))) {
+                            return responses[key];
+                        }
+                    }
+                    return 'Desculpe, não tenho essa informação no meu contexto. Poderia reformular a pergunta?';
+                };
+
+                chatInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && chatInput.value.trim() !== '') {
+                        const userMessage = chatInput.value.trim();
+                        addMessage(userMessage, 'user');
+                        chatInput.value = '';
+
+                        setTimeout(() => {
+                            addMessage(getBotResponse(userMessage), 'bot');
+                        }, 1000);
+                    }
+                });
+            };
+
+            /**
+             * Módulo 5: Terminal Interativo
+             * Objetivo: Criar uma interface de linha de comando funcional.
+             */
+            const initTerminal = () => {
+                const terminal = document.getElementById('terminal');
+                const terminalInput = document.getElementById('terminal-input');
+                const terminalOutput = document.getElementById('terminal-output');
+                let commandHistory = [], historyIndex = -1;
+
+                const openTerminal = () => terminal.classList.remove('hidden');
+                const closeTerminal = () => terminal.classList.add('hidden');
+
+                const executeCommand = (cmd) => {
+                    terminalOutput.innerHTML += `<div><span class="text-green-400">user@portfolio:~$</span> ${cmd}</div>`;
+                    let response = '';
+                    const [command] = cmd.split(' ');
+
+                    switch (command) {
+                        case 'help':
+                            response = `Comandos disponíveis:<br>
+                            - <span class="text-sky-400">help</span>: Mostra esta lista de ajuda.<br>
+                            - <span class="text-sky-400">projetos</span>: Lista os 6 projetos mais recentes do GitHub.<br>
+                            - <span class="text-sky-400">sobre</span>: Exibe um resumo da minha jornada.<br>
+                            - <span class="text-sky-400">contato</span>: Exibe informações de contato.<br>
+                            - <span class="text-sky-400">clear</span>: Limpa o terminal.<br>
+                            - <span class="text-sky-400">exit</span>: Fecha o terminal.`;
+                            break;
+                        case 'projetos':
+                            response = githubProjectsData.length > 0
+                                ? githubProjectsData.map(p => `- <a href="${p.html_url}" target="_blank" class="text-yellow-400 hover:underline">${p.name}</a>`).join('<br>')
+                                : 'Projetos ainda não carregados. Tente novamente em alguns segundos.';
+                            break;
+                        case 'sobre':
+                            response = 'Arquiteto de Soluções Full-Stack com paixão por criar sistemas eficientes e escaláveis. Minha jornada vai desde o desenvolvimento hands-on até a liderança técnica e o design de arquiteturas complexas. Foco em IA e Cloud.';
+                            break;
+                        case 'contato':
+                            response = 'Você pode me encontrar no GitHub e LinkedIn, ou me enviar uma mensagem através do formulário na seção Contato.';
+                            break;
+                        case 'clear':
+                            terminalOutput.innerHTML = ''; return;
+                        case 'exit':
+                            closeTerminal(); return;
+                        default:
+                            response = `Comando não encontrado: ${cmd}. Digite 'help' para ver a lista de comandos.`;
+                    }
+                    terminalOutput.innerHTML += `<div>${response}</div>`;
+                    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+                };
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.ctrlKey && e.key === '`') {
+                        e.preventDefault();
+                        terminal.classList.contains('hidden') ? (openTerminal(), terminalInput.focus()) : closeTerminal();
+                    }
+                });
+
+                terminalInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && terminalInput.value.trim() !== '') {
+                        const cmd = terminalInput.value.trim();
+                        executeCommand(cmd);
+                        if(cmd) { commandHistory.unshift(cmd); }
+                        historyIndex = -1;
+                        terminalInput.value = '';
+                    } else if (e.key === 'ArrowUp') {
+                        if (historyIndex < commandHistory.length - 1) {
+                            historyIndex++;
+                            terminalInput.value = commandHistory[historyIndex];
+                        }
+                    } else if (e.key === 'ArrowDown') {
+                        if (historyIndex > 0) {
+                            historyIndex--;
+                            terminalInput.value = commandHistory[historyIndex];
+                        } else {
+                            historyIndex = -1;
+                            terminalInput.value = '';
+                        }
+                    }
+                });
+            };
+
+            /**
+             * Módulo 6.1: Lógica do Modal Genérico e Simulações de IA
+             * Objetivo: Controlar um modal reutilizável e simular chamadas de IA.
+             */
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+
+            const openModal = (title, content) => {
+                modalTitle.textContent = title;
+                modalBody.innerHTML = content;
+                modal.classList.remove('hidden');
+            };
+            const closeModal = () => modal.classList.add('hidden');
+            
+            modalCloseBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => e.target === modal && closeModal());
+
+            const simulateGeminiCodeReview = (repoName) => new Promise(resolve => setTimeout(() => resolve(`
+                <h3>Análise do Projeto: <strong>${repoName}</strong></h3>
+                <h4>🦾 Ponto Forte:</h4>
+                <p>A estrutura do projeto é exemplar, com uma clara separação de responsabilidades (SoC) entre os módulos de UI, lógica de negócios e acesso a dados. Isso facilita a manutenção e a escalabilidade.</p>
+                <h4>💡 Sugestão de Melhoria:</h4>
+                <p>Recomendo a implementação de um sistema de cache, como Redis, para as consultas mais frequentes ao banco de dados. Isso poderia reduzir drasticamente a latência e aliviar a carga no servidor principal.</p>
+                <h4>🧠 Análise de Função Complexa:</h4>
+                <p>A função <code>calculateRiskScore()</code> demonstra uma lógica robusta. Ela utiliza um algoritmo de ponderação dinâmica para avaliar múltiplos fatores de entrada, normalizando-os antes de aplicar uma curva de regressão logística para determinar a pontuação final.</p>
+            `), 1500));
+
+            const simulateGeminiIdeaGenerator = () => new Promise(resolve => setTimeout(() => resolve(`
+                <h3>Desafio: <strong>Plataforma de Mentoria Gamificada</strong></h3>
+                <p><strong>Conceito:</strong> Crie uma aplicação web que conecta mentores e aprendizes em áreas de tecnologia. A plataforma deve ter um sistema de "quests" (desafios) que os aprendizes completam com a ajuda dos mentores, ganhando XP e desbloqueando novas habilidades em sua "skill tree" pessoal.</p>
+                <h4>Funcionalidades Chave:</h4>
+                <ul>
+                    <li>Perfis de Usuário: Distinção entre mentor e aprendiz.</li>
+                    <li>Sistema de Matching: Algoritmo para sugerir mentores compatíveis.</li>
+                    <li>Dashboard de Quests: Mentores podem criar trilhas de aprendizado.</li>
+                </ul>
+                <h4>Stack Tecnológica Sugerida:</h4>
+                <p><strong>Frontend:</strong> Next.js (React) com Tailwind CSS.<br><strong>Backend:</strong> Node.js com GraphQL.<br><strong>Banco de Dados:</strong> PostgreSQL e Redis.</p>
+            `), 1500));
+
+            document.body.addEventListener('click', async (e) => {
+                const analyzeBtn = e.target.closest('.analyze-btn');
+                if (analyzeBtn) {
+                    const repoName = analyzeBtn.dataset.repoName;
+                    openModal(`Análise de IA: ${repoName}`, '<p>Analisando o código com a IA... Por favor, aguarde.</p>');
+                    const review = await simulateGeminiCodeReview(repoName);
+                    openModal(`Análise de IA: ${repoName}`, review);
+                }
+            });
+            
+            document.getElementById('idea-generator-btn').addEventListener('click', async () => {
+                openModal('Gerador de Ideias com IA', '<p>Consultando a IA para uma ideia de projeto desafiadora...</p>');
+                const idea = await simulateGeminiIdeaGenerator();
+                openModal('Gerador de Ideias com IA', idea);
+            });
+
+            /**
+             * Módulo 6.2: Lógica do Formulário de Contato
+             * Objetivo: Lidar com o envio do formulário e feedback ao usuário.
+             */
+            const initContactForm = () => {
+                const form = document.getElementById('contact-form');
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    openModal('Enviando Mensagem', '<p>Aguarde um momento...</p>');
+                    try {
+                        const response = await fetch(form.action, {
+                            method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' }
+                        });
+                        if (response.ok) {
+                            form.reset();
+                            openModal('Sucesso!', '<p>Sua mensagem foi enviada. Entrarei em contato em breve!</p>');
+                        } else {
+                            throw new Error('Falha no envio.');
+                        }
+                    } catch (error) {
+                        openModal('Erro', '<p>Ocorreu um erro ao enviar sua mensagem. Tente novamente mais tarde.</p>');
+                    }
+                });
+            };
+
+            // ==================================================
+            // Inicialização de todos os módulos
+            // ==================================================
+            initNavigation();
+            initParticleUniverse();
+            initTypedEffect();
+            initScrollAnimations();
+            initAboutSection();
+            fetchGithubProjects();
+            initRecruiterTools();
+            initTerminal();
+            initContactForm();
+        });
+    </script>
+</body>
+</html>

@@ -76,6 +76,7 @@ nav {
 }
 .nav-button {
     font-size: var(--font-size-nav-mobile);
+    cursor: pointer;
 }
 
 .nav-button:hover {
