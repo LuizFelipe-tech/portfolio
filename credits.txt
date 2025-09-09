@@ -1,7 +1,11 @@
 Recursos Visuais
+Fontes: A tipografia do site utiliza a família de fontes Inter, disponibilizada gratuitamente pelo Google Fonts.
 
-Ícones de Machine Learning criados por VectorPortal, disponíveis na plataforma Flaticon.
+Ícones: O ícone de menu (hambúrguer) e o de código são parte da biblioteca Material Symbols, oferecida pelo Google.
+
+Ícones de Machine Learning: Criados por VectorPortal, disponíveis na plataforma Flaticon.
 
 Código e Ferramentas
+React & TypeScript: O projeto foi construído sobre a poderosa base do React e a segurança de tipos do TypeScript, utilizando Vite como ferramenta de build.
 
-CSS Reset v2.0 por Eric Meyer. Um recurso de domínio público essencial para garantir a consistência visual do projeto em diferentes navegadores.
+CSS Reset v2.0: Por Eric Meyer. Um recurso de domínio público essencial para garantir a consistência visual do projeto em diferentes navegadores.

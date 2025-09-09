@@ -60,14 +60,17 @@ nav {
 
 .nav-menu {
     position: absolute;
-    top: 95%;
-    left: 0;
+    top: 100%; /* Posiciona o menu logo abaixo da barra de navegação */
+    left: var(--spacing-sm);
     width: var(--nav-menu-width);
     background-color: var(--accent-color-transparent);
-    border-top: var(--spacing-xxs) solid var(--border-color);
+    border: var(--spacing-xxs) solid var(--border-color);
+    border-top: none; /* A barra de navegação já tem uma borda inferior */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
     padding: var(--spacing-sm);
     z-index: 5;
-    display: block;
     border-radius: var(--border-radius-sm);
 }
 
