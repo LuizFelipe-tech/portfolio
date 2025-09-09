@@ -1,5 +1,5 @@
 node-v22.18.0-win-x64
-start.bat
+*.bat
 # Logs
 logs
 *.log
