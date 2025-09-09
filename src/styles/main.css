@@ -1,0 +1,211 @@
+/* ==========================================================================
+   1. Estilos Base (Mobile-First)
+   ========================================================================== */
+@import './reset.css';
+@import './a11y.css';
+@import './variables.css';
+
+html {
+    font-size: var(--font-size-base);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--background-color);
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    color: var(--text-color);
+}
+
+/* ==========================================================================
+   2. Componentes e Seções
+   ========================================================================== */
+
+/* --- Header & Navegação --- */
+header {
+    position: relative;
+    z-index: 10;
+}
+
+nav {
+    background-color: var(--background-color);
+    padding: var(--nav-padding-mobile);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: var(--spacing-xxs) solid var(--border-color);
+}
+
+#name {
+    font-size: var(--font-size-md);
+    font-weight: bold;
+}
+
+#burger-menu {
+    padding: var(--burger-menu-padding);
+    border-radius: var(--border-radius-full);
+    transition: background-color var(--transition-duration-fast) var(--transition-timing-function);
+}
+
+#burger-menu:hover {
+    background-color: var(--accent-color-transparent);
+    cursor: pointer;
+}
+
+.navbuttons {
+    display: none;
+}
+
+.nav-menu {
+    position: absolute;
+    top: 100%; /* Posiciona o menu logo abaixo da barra de navegação */
+    left: var(--spacing-sm);
+    width: var(--nav-menu-width);
+    background-color: var(--accent-color-transparent);
+    border: var(--spacing-xxs) solid var(--border-color);
+    border-top: none; /* A barra de navegação já tem uma borda inferior */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    z-index: 5;
+    border-radius: var(--border-radius-sm);
+}
+
+.nav-menu-off {
+    display: none;
+}
+.nav-button {
+    font-size: var(--font-size-nav-mobile);
+    cursor: pointer;
+}
+
+.nav-button:hover {
+    color: var(--it-blue);
+    cursor: pointer;
+}
+
+/* --- Seção Hero --- */
+#hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+canvas {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: var(--font-size-lg);
+    font-weight: bolder;
+    color: var(--white-color);
+}
+
+#hero-subtitle {
+    color: var(--standard-gray);
+    font-size: var(--font-size-md);
+    max-width: var(--hero-max-width);
+    padding: 0 var(--spacing-sm);
+}
+
+/* ==========================================================================
+   3. Animações e Efeitos
+   ========================================================================== */
+#dynamic-text {
+    color: var(--it-blue);
+    text-shadow: 0 0 7px var(--it-blue);
+}
+
+#dynamic-text::after {
+    content: '|';
+    margin-left: 5px; /* Mantido em px por ser um detalhe fino, mas poderia ser var(--spacing-xxs-pixel) */
+    font-weight: bold;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+/* ==========================================================================
+   4. Classes Utilitárias
+   ========================================================================== */
+#emphasize {
+    font-weight: bold;
+}
+
+/* ==========================================================================
+   5. Estilos para Telas Maiores (Desktop)
+   ========================================================================== */
+@media (min-width: 1000px) {
+    nav {
+        padding: var(--nav-padding-desktop);
+    }
+
+    #burger-menu {
+        display: none;
+    }
+
+    .navbuttons {
+        display: flex;
+        font-size: var(--font-size-sm);
+        gap: var(--spacing-md);
+    }
+
+    .nav-button {
+        position: relative;
+        color: var(--standard-gray);
+        font-size: var(--font-size-nav-desktop);
+        transition: color var(--transition-duration-fast) var(--transition-timing-function);
+    }
+
+    .nav-button::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: var(--underline-height);
+        background-color: var(--it-blue);
+        bottom: calc(-1 * var(--spacing-xs));
+        left: 0;
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform var(--transition-duration-medium) var(--transition-timing-function-alt);
+        will-change: transform;
+    }
+
+    .nav-button:hover::after {
+        transform: scaleX(1);
+    }
+
+    .hero-title {
+        font-size: var(--font-size-xl);
+    }
+}
