@@ -1,43 +1,44 @@
 import React, { useState, useEffect } from 'react';
+import Navigation from './Navigation';
 import burgerMenuIcon from '../../assets/imgs/menu_24dp_38BDF8_FILL0_wght400_GRAD0_opsz24.svg';
 import codeIcon from '../../assets/imgs/code_24dp_38BDF8_FILL0_wght400_GRAD0_opsz24.svg';
+
+const DESKTOP_BREAKPOINT = 1000;
 
 const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    // Este hook garante que o menu feche se a tela for redimensionada para o tamanho de desktop
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth >= 1000) {
+            if (window.innerWidth >= DESKTOP_BREAKPOINT) {
                 setIsMenuOpen(false);
             }
         };
-
         window.addEventListener('resize', handleResize);
-
-        // Limpa o listener quando o componente é desmontado para evitar vazamentos de memória
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+    
+    const toggleMenu = () => setIsMenuOpen(prev => !prev);
 
-    // Determina a classe CSS a ser usada com base no estado do menu
     const navLinksClassName = isMenuOpen ? 'nav-menu' : 'navbuttons';
 
     return (
         <header>
             <nav>
-                <img 
-                    src={burgerMenuIcon} 
-                    alt="Menu" 
-                    id="burger-menu"
-                    onClick={() => setIsMenuOpen(!isMenuOpen)} // Alterna o estado do menu ao clicar
-                />
+                {}
+                <button id="burger-menu" onClick={toggleMenu} aria-label="Abrir menu">
+                    <img 
+                        src={burgerMenuIcon} 
+                        alt=""
+                    />
+                </button>
+
+                {}
                 <p id="name">Luiz Felipe</p>
-                <div className={navLinksClassName}>
-                    <p className="nav-button">Sobre</p>
-                    <p className="nav-button">Projetos</p>
-                    <p className="nav-button">Painel</p>
-                    <p className="nav-button">Contato</p>
-                </div>
+
+                {}
+                <Navigation className={navLinksClassName} />
+
                 <img src={codeIcon} alt="Símbolo de código" />
             </nav>
         </header>

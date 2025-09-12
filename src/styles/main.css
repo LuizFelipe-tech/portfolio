@@ -47,6 +47,8 @@ nav {
     padding: var(--burger-menu-padding);
     border-radius: var(--border-radius-full);
     transition: background-color var(--transition-duration-fast) var(--transition-timing-function);
+    border: none;
+    border: 0;
 }
 
 #burger-menu:hover {
@@ -60,12 +62,12 @@ nav {
 
 .nav-menu {
     position: absolute;
-    top: 100%; /* Posiciona o menu logo abaixo da barra de navegação */
+    top: 100%;
     left: var(--spacing-sm);
     width: var(--nav-menu-width);
     background-color: var(--accent-color-transparent);
     border: var(--spacing-xxs) solid var(--border-color);
-    border-top: none; /* A barra de navegação já tem uma borda inferior */
+    border-top: none;
     display: flex;
     flex-direction: column;
     gap: var(--spacing-sm);
@@ -78,7 +80,9 @@ nav {
     display: none;
 }
 .nav-button {
+    color: var(--standard-gray);
     font-size: var(--font-size-nav-mobile);
+    text-decoration: none;
     cursor: pointer;
 }
 
@@ -166,12 +170,12 @@ canvas {
    5. Estilos para Telas Maiores (Desktop)
    ========================================================================== */
 @media (min-width: 1000px) {
-    nav {
-        padding: var(--nav-padding-desktop);
+    #burger-menu{
+        display: none;
     }
 
-    #burger-menu {
-        display: none;
+    nav {
+        padding: var(--nav-padding-desktop);
     }
 
     .navbuttons {

@@ -21,11 +21,6 @@ function App() {
             </p>
           </article>
         </section>
-        
-        <section>
-          <h1>Testando</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores eius praesentium, ducimus officia animi ullam iure quas quasi illum nisi quae sapiente necessitatibus minima. Asperiores corporis magni id totam eum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Est commodi, saepe accusantium exercitationem nisi vel nesciunt beatae veritatis. Rerum dolorum a quod, aliquid eos ullam possimus obcaecati rem sint numquam!</p>
-        </section>
       </main>
 
       <footer>
