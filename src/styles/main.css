@@ -167,7 +167,7 @@ canvas {
 }
 
 /* ==========================================================================
-   5. Estilos para Telas Maiores (Desktop)
+   5. Styles for Larger Screens (Desktop)
    ========================================================================== */
 @media (min-width: 1000px) {
     #burger-menu{

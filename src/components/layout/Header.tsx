@@ -14,12 +14,13 @@ const Header: React.FC = () => {
                 setIsMenuOpen(false);
             }
         };
+        //Changes burger-menu state when the screen size changed
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
     
     const toggleMenu = () => setIsMenuOpen(prev => !prev);
-
+    //Handles which class suits best for burger-menu, depending on it's state
     const navLinksClassName = isMenuOpen ? 'nav-menu' : 'navbuttons';
 
     return (

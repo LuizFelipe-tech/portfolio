@@ -1,5 +1,5 @@
 :root {
-    /* --- Cores --- */
+    /* --- Colors --- */
     --it-blue: #38BDF8;
     --background-color: #0D1117;
     --text-color: #C9D1D9;
@@ -9,7 +9,7 @@
     --white-color: #FFFFFF;
     --accent-color-transparent: #38BDF833;
 
-    /* --- Tipografia --- */
+    /* --- Tipography --- */
     --font-size-base: 62.5%; /* 1rem = 10px */
     --font-size-sm: 1.5rem;
     --font-size-md: 2rem;
@@ -18,7 +18,7 @@
     --font-size-nav-mobile: 1.5em;
     --font-size-nav-desktop: 1em;
     
-    /* --- Espaçamento --- */
+    /* --- Spacing --- */
     --spacing-xxs: 1px;
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
@@ -27,16 +27,16 @@
     --nav-padding-desktop: 3.5vh 14vh;
     --burger-menu-padding: 0.5vh;
     
-    /* --- Layout & Componentes --- */
+    /* --- Layout & Components --- */
     --nav-menu-width: 150px;
     --hero-max-width: 700px;
     --underline-height: 2px;
     
-    /* --- Bordas --- */
+    /* --- Borders --- */
     --border-radius-sm: 5%;
     --border-radius-full: 50%;
 
-    /* --- Transições --- */
+    /* --- Transitions --- */
     --transition-duration-fast: 0.3s;
     --transition-duration-medium: 0.4s;
     --transition-timing-function: ease;

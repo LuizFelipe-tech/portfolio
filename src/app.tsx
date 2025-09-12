@@ -6,8 +6,8 @@ import Header from './components/layout/Header';
 function App() {
   return (
     <>
+    {/* This is a single-line comment in JSX */}
       <Header />
-
       <main>
         <section id="hero-section">
           <ParticleCanvas />

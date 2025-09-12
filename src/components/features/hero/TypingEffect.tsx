@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'; // Importe useCallback
+import React, { useState, useEffect, useCallback } from 'react';
 
 interface TypingEffectProps {
     words: string[];
@@ -7,6 +7,7 @@ interface TypingEffectProps {
     delaySpeed?: number;
 }
 
+//Defines main component props
 const TypingEffect: React.FC<TypingEffectProps> = ({
     words,
     typeSpeed = 200,
@@ -18,7 +19,7 @@ const TypingEffect: React.FC<TypingEffectProps> = ({
     const [loopNum, setLoopNum] = useState(0);
     const [typingInterval, setTypingInterval] = useState(typeSpeed);
 
-    // Envolvemos a lógica principal em useCallback
+    
     const handleTyping = useCallback(() => {
         const i = loopNum % words.length;
         const fullText = words[i];
@@ -42,7 +43,7 @@ const TypingEffect: React.FC<TypingEffectProps> = ({
     useEffect(() => {
         const timer = setTimeout(handleTyping, typingInterval);
         return () => clearTimeout(timer);
-    }, [handleTyping, typingInterval]); // Agora a dependência é a função 'handleTyping'
+    }, [handleTyping, typingInterval]);
 
     return <span>{text}</span>;
 };
