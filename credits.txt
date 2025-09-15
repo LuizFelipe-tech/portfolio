@@ -1,5 +1,6 @@
-##Recursos Visuais
+Recursos Visuais
 Fontes
+
 A tipografia deste projeto utiliza as seguintes fontes, ambas licenciadas sob a SIL Open Font License, Version 1.1:
 Inter: Criada por Rasmus Andersson e contribuidores. Disponível em rsms/inter.
 Fira Code: Criada por Nikita Prokopov e contribuidores. Disponível em tonsky/FiraCode.
@@ -9,8 +10,8 @@ O ícone de menu (hambúrguer) e o de código são parte da biblioteca Material 
 Os ícones de Machine Learning foram criados por VectorPortal e estão disponíveis na plataforma Flaticon.
 
 Código e Ferramentas
-React & TypeScript
-O projeto foi construído sobre a poderosa base do React e a segurança de tipos do TypeScript, utilizando Vite como ferramenta de build.
+A arquitetura do projeto foi desenvolvida com um conjunto de ferramentas modernas e eficientes, focadas em produtividade e boas práticas:
 
-CSS Reset
-Utilizamos o CSS Reset v2.0 por Eric Meyer, um recurso de domínio público essencial para garantir a consistência visual do projeto em diferentes navegadores.
+React & TypeScript: O projeto foi construído sobre a poderosa base do React para criar interfaces de usuário dinâmicas e reativas, com a segurança de tipos do TypeScript garantindo um código mais robusto e escalável.
+Tailwind CSS: Para a estilização, foi utilizado o Tailwind CSS, um framework utility-first que permite a construção de designs complexos e responsivos diretamente no HTML/JSX, agilizando o desenvolvimento e mantendo a consistência visual.
+Vite: Todo o ambiente de desenvolvimento e o processo de build são gerenciados pelo Vite, proporcionando uma experiência de desenvolvimento extremamente rápida com Hot Module Replacement (HMR) instantâneo
