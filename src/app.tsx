@@ -2,6 +2,7 @@ import React from 'react';
 import ParticleCanvas from './components/features/hero/ParticleCanvas';
 import TypingEffect from './components/features/hero/TypingEffect';
 import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
 
 function App() {
   return (
@@ -23,9 +24,7 @@ function App() {
         </section>
       </main>
 
-      <footer>
-        <p>Feito por Luiz</p>
-      </footer>
+      <Footer/>
     </>
   );
 }

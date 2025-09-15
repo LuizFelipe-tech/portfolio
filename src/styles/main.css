@@ -4,6 +4,8 @@
 @import './reset.css';
 @import './a11y.css';
 @import './variables.css';
+@import "tailwindcss";
+
 
 html {
     font-size: var(--font-size-base);
