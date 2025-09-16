@@ -6,10 +6,9 @@ import Footer from './components/layout/Footer';
 
 function App() {
   return (
-    <>
-    {/* This is a single-line comment in JSX */}
+    <div>
       <Header />
-      <main>
+      <main className='bg-it-blue'>
         <section id="hero-section">
           <ParticleCanvas />
           <article id="hero-content">
@@ -25,7 +24,7 @@ function App() {
       </main>
 
       <Footer/>
-    </>
+    </div>
   );
 }
 
