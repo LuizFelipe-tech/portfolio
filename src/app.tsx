@@ -6,9 +6,9 @@ import Footer from './components/layout/Footer';
 
 function App() {
   return (
-    <div>
+    <div className='bg-slate-900 h-screen'>
       <Header />
-      <main className='bg-it-blue'>
+      <main>
         <section id="hero-section">
           <ParticleCanvas />
           <article id="hero-content">

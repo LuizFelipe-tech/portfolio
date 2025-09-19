@@ -21,7 +21,7 @@ const Navigation: React.FC<NavigationProps> = ({className}) => {
             {
                 navItens.map(
                     (item) => (
-                        <a href={item.href} key = {item.label} className = "nav-button">
+                        <a href={item.href} key = {item.label} className = "hover:text-sky-500 block relative">
                             {item.label}
                         </a>
                     )
